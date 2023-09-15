@@ -1,12 +1,9 @@
-def calculate_bmi(weight, height, unit_system):
-    if unit_system == "metric":
-        bmi = weight / (height ** 2)
-    elif unit_system == "imperial":
-        bmi = (weight / (height ** 2)) * 703
-    else:
-        print("Invalid unit system. Please use 'metric' or 'imperial'.")
-        return None
-    
+def calculate_bmi(weight_lb, height_ft, height_in):
+    # Convert height to inches
+    height_total_in = (height_ft * 12) + height_in
+
+    # Calculate BMI
+    bmi = (weight_lb / (height_total_in ** 2)) * 703
     return bmi
 
 def interpret_bmi(bmi):
@@ -20,15 +17,14 @@ def interpret_bmi(bmi):
         return "Obese"
 
 # Get user input
-weight = float(input("Enter your weight: "))
-height = float(input("Enter your height: "))
-unit_system = input("Enter 'metric' for kilograms and meters or 'imperial' for pounds and inches: ").lower()
+weight_lb = float(input("Enter your weight in pounds: "))
+height_ft = int(input("Enter your height in feet: "))
+height_in = int(input("Enter your height in inches: "))
 
 # Calculate BMI
-bmi = calculate_bmi(weight, height, unit_system)
+bmi = calculate_bmi(weight_lb, height_ft, height_in)
 
 # Interpret BMI and display the result
-if bmi is not None:
-    print(f"Your BMI is: {bmi:.2f}")
-    interpretation = interpret_bmi(bmi)
-    print(f"You are in the '{interpretation}' category.")
+print(f"Your BMI is: {bmi:.2f}")
+interpretation = interpret_bmi(bmi)
+print(f"You are in the '{interpretation}' category.")
